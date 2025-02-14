@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <title>Aurora cams</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <style>
         #map { height: 400px; width: 100%; }
     </style>
 </head>
 <body>
 
-    <h2>City List</h2>
+    <h2>Cam list</h2>
     <ul>
         <li><a href="https://en.wikipedia.org/wiki/New_York_City" target="_blank">New York, USA</a></li>
         <li><a href="https://en.wikipedia.org/wiki/London" target="_blank">London, UK</a></li>
@@ -26,17 +26,275 @@
         const locations = [
             { name: "New York, USA", lat: 40.7128, lng: -74.0060, url: "https://en.wikipedia.org/wiki/New_York_City" },
             { name: "London, UK", lat: 51.5074, lng: -0.1278, url: "https://en.wikipedia.org/wiki/London" },
-            { name: "Tokyo, Japan", lat: 35.6895, lng: 139.6917, url: "https://en.wikipedia.org/wiki/Tokyo" }
+            { name: "Tokyo, Japan", lat: 35.6895, lng: 139.6917, url: "https://en.wikipedia.org/wiki/Tokyo" },
+            {
+                "location": "Kjell Henriksen Observatory, Svalbard ",
+                "link": "https://kho.unis.no/Quicklooks/kho_sony.png",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Nordkapp, Finnmark ",
+                "link": "https://live-image.panomax.com/cams/5067/recent_reduced.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
         ];
 
         const map = L.map('map').setView([20, 0], 2);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
+        /*
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=Kjell+Henriksen+Observatory+Svalbard`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const lat = data[0].lat;
+                    const lon = data[0].lon;
+                    L.marker([lat, lon])
+                        .addTo(map)
+                        .bindPopup(`<a href="https://kho.unis.no/Quicklooks/kho_sony.png" target="_blank">Kjell Henriksen Observatory</a>`);
+                    map.setView([lat, lon], 4);
+                }
+            });
+        */
+        async function getCoords(location) {
+            const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`); console.log(r);
+            const json = await r.json(); console.log(json);
+            const data = json.length > 0 ? { lat: json[0].lat, lon: json[0].lon, } : null;  console.log(data);
 
-        locations.forEach(location => {
-            const marker = L.marker([location.lat, location.lng]).addTo(map)
-                .bindPopup(`<a href="${location.url}" target="_blank">${location.name}</a>`);
+            return data;
+        }
+
+        const cams = [
+            {
+                "location": "Kjell Henriksen Observatory, Svalbard ",
+                "link": "https://kho.unis.no/Quicklooks/kho_sony.png",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Nordkapp, Finnmark ",
+                "link": "https://live-image.panomax.com/cams/5067/recent_reduced.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Skibotn, Troms ",
+                "link": "https://fox.phys.uit.no/ASC/Latest_ASC01.png",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Setermoen, Troms (North-east camera) ",
+                "link": "https://www.yr.no/webcams/1/2000/setermoen/3.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Loen, Vestland ",
+                "link": "https://live-image.panomax.com/cams/1941/recent_reduced.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Brekke, Vestland (West camera) ",
+                "link": "https://www.yr.no/webcams/1/2000/ortneset/1.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Brekke, Vestland (North-east camera) ",
+                "link": "https://www.yr.no/webcams/1/2000/ortneset/2.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Abisko, Norrbotten ",
+                "link": "https://lightsoverlapland.com/aurora-webcam/",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Kiruna, Norrbotten ",
+                "link": "https://www.irf.se/alis/allsky/krn/latest_medium.jpeg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Porjus, Norrbotten (North camera) ",
+                "link": "https://uk.jokkmokk.jp/photo/nr4/latest.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Porjus, Norrbotten (West camera) ",
+                "link": "https://uk.jokkmokk.jp/photo/nr3/latest.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Kilpisjärvi, Lappland (North camera) ",
+                "link": "https://www.youtube.com/watch?v=ccTVAhJU5lg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Levi, Lappland (North camera) ",
+                "link": "https://www.youtube.com/watch?v=W3LKHE181Wg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Sodankylä, Lappland ",
+                "link": "https://www.youtube.com/watch?v=T3tQnkEIBvg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Sodankylä, Lappland ",
+                "link": "https://www.sgo.fi/Data/RealTime/Kuvat/UCL.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Oulu, North Ostrobothnia ",
+                "link": "https://www.youtube.com/watch?v=fvLkWgFy4Bs",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Kalajoki, North Ostrobothnia ",
+                "link": "https://www.youtube.com/watch?v=WBkhsOD82M8",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Tampere, Pirkanmaa (North camera) ",
+                "link": "https://www.ursa.fi/yhd/tampereenursa/ys-images/north-snapshot.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Tampere, Pirkanmaa (West camera) ",
+                "link": "https://www.ursa.fi/yhd/tampereenursa/ys-images/west-snapshot.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Tampere, Pirkanmaa (East camera) ",
+                "link": "https://www.ursa.fi/yhd/tampereenursa/ys-images/east-snapshot.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Tampere, Pirkanmaa (South camera) ",
+                "link": "https://www.ursa.fi/yhd/tampereenursa/ys-images/south-snapshot.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Hankasalmi, Central Finland ",
+                "link": "https://aurorasnow.fmi.fi/public_service/images/latest_SIR_AllSky.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Nyrölä, Central Finland ",
+                "link": "https://aurorasnow.fmi.fi/public_service/images/latest_SIR.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Kirkkonummi, Uusimaa ",
+                "link": "https://aurorasnow.fmi.fi/public_service/images/latest_HOV.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Helsinki, Uusimaa ",
+                "link": "https://space.fmi.fi/MIRACLE/RWC/latest_HEL.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Highland Center Hrauneyjar ",
+                "link": "https://www.thehighlandcenter.is/northern-lights/webcam",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Hella Landhotel ",
+                "link": "https://landhotel.is/index.php/northernlights-live",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Sorø ",
+                "link": "https://archive.allsky.tv/AMS89/LATEST/010893.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Ilulissat Airport (North camera) ",
+                "link": "https://www.youtube.com/watch?v=4YdNNvajwjI",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Tasiilaq Heliport ",
+                "link": "https://www.youtube.com/watch?v=hfF9bhaBuvw",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Teriberka, Murmansk Oblast ",
+                "link": "https://video.auroracam.ru/page/2ztOnUXP",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Strezhevoy, Tomsk Oblastt ",
+                "link": "https://starvisor.ru/wp-content/uploads/webcam/capture_str.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "St. Petersburg, Leningrad Oblast ",
+                "link": "https://starvisor.ru/wp-content/uploads/webcam/cap_spbd.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Kalingrad, Kaliningrad Oblast ",
+                "link": "https://starvisor.ru/wp-content/uploads/webcam/cap_klnsky.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Shetland Islands, Scotland ",
+                "link": "https://www.shetlandwebcams.com/cliff-cam-3/",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Cape Arkona, Rügen (Fischerdorf Vitt) ",
+                "link": "https://kap-arkona.panomax.com/vitt",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Cape Arkona, Rügen (Peilturm) ",
+                "link": "https://kap-arkona.panomax.com/peilturm",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Ettelsberg ",
+                "link": "https://www.foto-webcam.eu/webcam/ettelsberg/current/1920.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Suntaži ",
+                "link": "https://cam.starspace.lv/assets/images/allskycam/jumta_kamera2.jpeg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Brno (Camera 1) ",
+                "link": "https://www.youtube.com/watch?v=atakzXwhXVM",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Brno (Camera 2) ",
+                "link": "https://www.youtube.com/watch?v=ryq2f01FWUg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Brno (Camera 3) ",
+                "link": "https://www.youtube.com/watch?v=XEKZCn4gCIU",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Brno (Camera 4) ",
+                "link": "https://www.youtube.com/watch?v=KAvqFpBQJI4",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "location": "Pizzo Matro, Ticino ",
+                "link": "https://pizzomatro.roundshot.com/",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            }
+            ];
+
+        locations.forEach(async location => {
+            var coords = await getCoords(location.name);
+            if (coords) {
+                L.marker([coords.lat, coords.lon])
+                    .addTo(map)
+                    .bindPopup(`<a href="${location.url}" target="_blank">${location.name}</a>`);
+            }
         });
     </script>
 

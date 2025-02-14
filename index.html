@@ -503,12 +503,11 @@
                 var coords = await getCoords(location.name);
                 if (coords) {
                     const key = `${coords.lat},${coords.lon}`;
-                    const popup = `<a href="${location.url}" target="_blank">${location.name} (${getType(location)})</a>`;
+                    const popup = `<a href="${location.url}" target="_blank">${location.name} ${location.details} (${getType(location)})</a>`;
 
                     if (uniqueLocations.has(key)) {
                         uniqueLocations.get(key).popup += `<br>${popup}`;
                     } else {
-                        // Store unique location
                         uniqueLocations.set(key, {
                             lat: coords.lat,
                             lon: coords.lon,

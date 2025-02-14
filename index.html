@@ -32,19 +32,25 @@
             __data: {},
             __timer: null,
             get: (k) => cache.__data[k],
+            getAll: (k) => ({ ...cache.__data }),
+            keys: (k) => Object.keys(cache.__data),
+            values: (k) => Object.values(cache.__data),
             set: (k, v) => {
                 cache.__data[k] = v;
-                cache.planSave();
+                cache.planPersist();
+            },
+            rm: (k) => {
+                delete cache.__data[k];
+                cache.planPersist();
             },
             has: (k) => k in cache.__data,
-            save: () => {
+            persist: () => {
                 localStorage.setItem('coordsCache', JSON.stringify(cache.__data));
                 console.log('saved');
             },
-            planSave: () => {
+            planPersist: () => {
                 clearTimeout(cache.__timer);
-                cache.__timer = setTimeout(cache.save, 500);
-                console.log('planned');
+                cache.__timer = setTimeout(cache.persist, 500);
             },
             restore: () => {
                 const item = localStorage.getItem('coordsCache');
@@ -237,8 +243,8 @@
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
             },
             {
-                "name": "Hella Landhotel",
-                "details": "",
+                "name": "Hella",
+                "details": "Landhotel",
                 "url": "https://landhotel.is/index.php/northernlights-live",
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
             },
@@ -267,7 +273,7 @@
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
             },
             {
-                "name": "Strezhevoy, Tomsk Oblastt",
+                "name": "Strezhevoy",
                 "details": "",
                 "url": "https://starvisor.ru/wp-content/uploads/webcam/capture_str.jpg",
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
@@ -279,7 +285,7 @@
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
             },
             {
-                "name": "Kalingrad, Kaliningrad Oblast",
+                "name": "Kaliningrad",
                 "details": "",
                 "url": "https://starvisor.ru/wp-content/uploads/webcam/cap_klnsky.jpg",
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
@@ -291,14 +297,14 @@
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
             },
             {
-                "name": "Cape Arkona, Rügen (Fischerdorf Vitt)",
-                "details": "",
+                "name": "Cape Arkona, Rügen",
+                "details": " (Fischerdorf Vitt)",
                 "url": "https://kap-arkona.panomax.com/vitt",
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
             },
             {
-                "name": "Cape Arkona, Rügen (Peilturm)",
-                "details": "",
+                "name": "Cape Arkona, Rügen",
+                "details": "(Peilturm)",
                 "url": "https://kap-arkona.panomax.com/peilturm",
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
             },
@@ -339,7 +345,7 @@
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
             },
             {
-                "name": "Pizzo Matro, Ticino",
+                "name": "Ticino",
                 "details": "",
                 "url": "https://pizzomatro.roundshot.com/",
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
@@ -399,7 +405,7 @@
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
             },
             {
-                "name": "Mayhill, Nex Mexico",
+                "name": "Mayhill, New Mexico",
                 "details": "",
                 "url": "https://allsky.linuxkidd.com/image-fullsize.jpg",
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <style>
+        #map { height: 400px; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <h2>City List</h2>
+    <ul>
+        <li><a href="https://en.wikipedia.org/wiki/New_York_City" target="_blank">New York, USA</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/London" target="_blank">London, UK</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Tokyo" target="_blank">Tokyo, Japan</a></li>
+    </ul>
+
+    <h2>Map</h2>
+    <div id="map"></div>
+
+    <script>
+        function initMap() {
+            const locations = [
+                { name: "New York, USA", lat: 40.7128, lng: -74.0060, url: "https://en.wikipedia.org/wiki/New_York_City" },
+                { name: "London, UK", lat: 51.5074, lng: -0.1278, url: "https://en.wikipedia.org/wiki/London" },
+                { name: "Tokyo, Japan", lat: 35.6895, lng: 139.6917, url: "https://en.wikipedia.org/wiki/Tokyo" }
+            ];
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 40.7128, lng: -74.0060 },
+                zoom: 2
+            });
+
+            locations.forEach(location => {
+                const marker = new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map,
+                    title: location.name
+                });
+
+                marker.addListener("click", () => {
+                    window.open(location.url, "_blank");
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>

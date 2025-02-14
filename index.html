@@ -28,17 +28,40 @@
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        const coordsCache = {};
+        const cache = {
+            __data: {},
+            __timer: null,
+            get: (k) => cache.__data[k],
+            set: (k, v) => {
+                cache.__data[k] = v;
+                cache.planSave();
+            },
+            has: (k) => k in cache.__data,
+            save: () => {
+                localStorage.setItem('coordsCache', JSON.stringify(cache.__data));
+                console.log('saved');
+            },
+            planSave: () => {
+                clearTimeout(cache.__timer);
+                cache.__timer = setTimeout(cache.save, 500);
+                console.log('planned');
+            },
+            restore: () => {
+                const item = localStorage.getItem('coordsCache');
+                cache.__data = JSON.parse(item || '{}');
+                console.log('restored');
+            },
+        };
+        cache.restore();
+
         async function getCoords(location) {
-            if (location in coordsCache) {
-                return coordsCache[location];
+            if (!cache.has(location)) {
+                const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
+                const json = await r.json();
+                cache.set(location, json.length > 0 ? { lat: json[0].lat, lon: json[0].lon, } : null);
             }
 
-            const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
-            const json = await r.json();
-            coordsCache[location] = json.length > 0 ? { lat: json[0].lat, lon: json[0].lon, } : null;
-
-            return coordsCache[location];
+            return cache.get(location);
         }
 
         const TYPES = {
@@ -320,7 +343,103 @@
                 "details": "",
                 "url": "https://pizzomatro.roundshot.com/",
                 "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
-            }
+            },
+            {
+                "name": "Yellowknife, Northwest Territories",
+                "details": "",
+                "url": "https://auroramax.phys.ucalgary.ca/recent/recent_480p.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Churchill, Manitoba",
+                "details": "",
+                "url": "https://www.youtube.com/watch?v=a0i1Kg6fROg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Banff, Alberta",
+                "details": "",
+                "url": "https://www.youtube.com/watch?v=BkdQyTFah6M",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Chatanika, Alaska",
+                "details": "",
+                "url": "https://allsky.gi.alaska.edu/",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Fairbanks, Alaska",
+                "details": "",
+                "url": "https://www.theaurorachasers.com/aurorawebcam",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Fairbanks, Alaska",
+                "details": "",
+                "url": "https://www.youtube.com/watch?v=c0mLq5X5spc",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Isle Royale National Park, Michigan",
+                "details": "",
+                "url": "https://www.nps.gov/webcams-isro/northshore.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Sebec Lake, Maine",
+                "details": "",
+                "url": "https://www.neoc.com/webcam3/",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Hope, New Jersey",
+                "details": "",
+                "url": "https://www.allskycam.com/u/627/latest_full.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Mayhill, Nex Mexico",
+                "details": "",
+                "url": "https://allsky.linuxkidd.com/image-fullsize.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Kingston, Tasmania",
+                "details": "",
+                "url": "https://www.allskycam.com/u.php?u=539",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Mount Burnett, Victoria",
+                "details": "",
+                "url": "https://skypi.mbo.org.au/allsky/image.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Craigie, Western Australia",
+                "details": "",
+                "url": "https://www.allskycam.com/u/606/latest_full.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Sydney, New South Wales",
+                "details": "",
+                "url": "https://admin.meteobridge.com/cam/9c25cda08544cf0db24b350b27d1e5f5/camplus.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Bluff, Southland",
+                "details": "",
+                "url": "https://weathercam.southloop.net.nz/OceanBeach/OceanBeachA0.jpg",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
+            {
+                "name": "Davis Station",
+                "details": "",
+                "url": "https://www.antarctica.gov.au/antarctic-operations/webcams/davis/",
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+            },
         ];
 
         async function plotLocations(locations) {

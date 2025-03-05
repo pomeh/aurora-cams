@@ -489,46 +489,56 @@
             },
         ];
 
-        async function plotLocations(locations) {
-            for (const location of locations) {
-                var coords = await getCoords(location.name);
-                if (coords) {
-                    L.marker([coords.lat, coords.lon])
-                        .addTo(map)
-                        .bindPopup(`<a href="${location.url}" target="_blank">${location.name} (${getType(location)})</a>`);
-                }
-            }
-        }
-
-        async function plotLocations(locations) {
+        async function plotLocations(locations, maxConcurrent = 5) {
             const uniqueLocations = new Map();
+            const queue = [...locations];
+            let activeRequests = 0;
 
-            for (const location of locations) {
-                var coords = await getCoords(location.name);
-                if (coords) {
-                    const key = `${coords.lat},${coords.lon}`;
-                    const popup = `<a href="${location.url}" target="_blank">${location.name} ${location.details} (${getType(location)})</a>`;
-
-                    if (uniqueLocations.has(key)) {
-                        uniqueLocations.get(key).popup += `<br>${popup}`;
-                    } else {
-                        uniqueLocations.set(key, {
-                            lat: coords.lat,
-                            lon: coords.lon,
-                            popup,
-                        });
-                    }
+            function processNext() {
+                if (queue.length === 0) {
+                    console.log('no more queue');
+                    return;
                 }
+                if (activeRequests >= maxConcurrent) {
+                    console.log('maxConcurrent reached');
+                    return;
+                }
+
+                const location = queue.shift();
+                activeRequests++;
+
+                getCoords(location.name)
+                    .then(coords => {
+                        if (coords) {
+                            const key = `${coords.lat},${coords.lon}`;
+                            const popup = `<a href="${location.url}" target="_blank">${location.name} (${getType(location)})</a>`;
+
+                            if (uniqueLocations.has(key)) {
+                                uniqueLocations.get(key).popup += `<br>${popup}`;
+                            } else {
+                                uniqueLocations.set(key, { lat: coords.lat, lon: coords.lon, popup });
+
+                                L.marker([coords.lat, coords.lon])
+                                    .addTo(map)
+                                    .bindPopup(uniqueLocations.get(key).popup);
+                            }
+                        }
+                    })
+                    .catch(console.error)
+                    .finally(() => {
+                        activeRequests--;
+                        processNext();
+                    });
+
+                processNext();
             }
 
-            uniqueLocations.forEach(location => {
-                L.marker([location.lat, location.lon])
-                    .addTo(map)
-                    .bindPopup(location.popup);
-            });
+            for (let i = 0; i < maxConcurrent; i++) {
+                processNext();
+            }
         }
 
-        plotLocations(cams);
+        plotLocations(cams, 5);
     </script>
 
 </body>

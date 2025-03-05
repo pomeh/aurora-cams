@@ -24,10 +24,45 @@
     -->
 
     <script>
-        const map = L.map('map').setView([20, 0], 2);
+        function getMapStateFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lat = parseFloat(urlParams.get('lat'));
+            const lon = parseFloat(urlParams.get('lon'));
+            const zoom = parseInt(urlParams.get('zoom'), 10);
+
+            return (lat && lon && zoom) ? { lat, lon, zoom } : null;
+        }
+
+        function updateURLWithMapState(map) {
+            const lat = map.getCenter().lat;
+            const lon = map.getCenter().lng;
+            const zoom = map.getZoom();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('lat', lat);
+            urlParams.set('lon', lon);
+            urlParams.set('zoom', zoom);
+
+            window.history.replaceState(null, '', '?' + urlParams.toString());
+        }
+
+        const map = L.map('map', {
+            // Northern Europe (where first markers are shown)
+            center: [64.1, 20.2],
+            zoom: 4,
+        });
+
+        const savedMapState = getMapStateFromURL();
+        if (savedMapState) {
+            map.setView([savedMapState.lat, savedMapState.lon], savedMapState.zoom);
+        }
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
+
+        map.on('moveend', () => updateURLWithMapState(map));
+        map.on('zoomend', () => updateURLWithMapState(map));
 
         const cache = {
             __data: {},

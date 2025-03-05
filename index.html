@@ -490,7 +490,7 @@
         ];
 
         async function plotLocations(locations, maxConcurrent = 5) {
-            const uniqueLocations = new Map();
+            const locationMap = new Map();
             const queue = [...locations];
             let activeRequests = 0;
 
@@ -511,16 +511,18 @@
                     .then(coords => {
                         if (coords) {
                             const key = `${coords.lat},${coords.lon}`;
-                            const popup = `<a href="${location.url}" target="_blank">${location.name} (${getType(location)})</a>`;
+                            const popupContent = `<a href="${location.url}" target="_blank">${location.name} (${getType(location)})</a>`;
 
-                            if (uniqueLocations.has(key)) {
-                                uniqueLocations.get(key).popup += `<br>${popup}`;
+                            if (locationMap.has(key)) {
+                                const entry = locationMap.get(key);
+                                entry.popupContent += `<br>${popupContent}`;
+                                entry.marker.setPopupContent(entry.popupContent);
                             } else {
-                                uniqueLocations.set(key, { lat: coords.lat, lon: coords.lon, popup });
-
-                                L.marker([coords.lat, coords.lon])
+                                const marker = L.marker([coords.lat, coords.lon])
                                     .addTo(map)
-                                    .bindPopup(uniqueLocations.get(key).popup);
+                                    .bindPopup(popupContent);
+
+                                locationMap.set(key, { lat: coords.lat, lon: coords.lon, popupContent, marker });
                             }
                         }
                     })

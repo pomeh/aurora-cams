@@ -6,17 +6,13 @@
     <title>Live sky cameras map, for night sky observations</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <style>
-        #map { height: 400px; width: 100%; }
-    </style>
 </head>
 <body>
-    <h2>Live sky cameras map, for night sky observations</h2>
-    <div id="map"></div>
+    <h2>Live sky cameras map</h2>
+    <div id="map" style="position: absolute; top: 60px; bottom: 20px; left: 20px; right: 20px;"></div>
 
     <!--
     TODO:
-    - full page map
     - better popup (bold location name, include image source if any, see https://www.thomasjacquin.com/allsky-map/ for ref)
     - add more locations
       - https://www.youtube.com/@LiveAuroraNetwork/streams
@@ -511,7 +507,7 @@
                     .then(coords => {
                         if (coords) {
                             const key = `${coords.lat},${coords.lon}`;
-                            const popupContent = `<a href="${location.url}" target="_blank">${location.name} (${getType(location)})</a>`;
+                            const popupContent = `<a href="${location.url}" target="_blank">${location.name} ${location.details} (${getType(location)})</a>`;
 
                             if (locationMap.has(key)) {
                                 const entry = locationMap.get(key);

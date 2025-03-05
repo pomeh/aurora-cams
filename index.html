@@ -25,13 +25,6 @@
       - ...
     - fix wrong locations found (kalingrad, levi, ...)
     - improve locations name (city/place + country)
-    - avoid long period where no marker if shown: show marker as soon as possible AND update marker if duplicate location is found
-    <h2>Cam list</h2>
-    <ul>
-        <li><a href="https://en.wikipedia.org/wiki/New_York_City" target="_blank">New York, USA</a></li>
-        <li><a href="https://en.wikipedia.org/wiki/London" target="_blank">London, UK</a></li>
-        <li><a href="https://en.wikipedia.org/wiki/Tokyo" target="_blank">Tokyo, Japan</a></li>
-    </ul>
     -->
 
     <script>
@@ -86,10 +79,10 @@
             YOUTUBE : 'YouTube',
             IMAGE : 'image',
             PAGE : 'web page',
-            UNKOWN : '',
+            UNKNOWN : '',
         };
         function getType(location) {
-            if (!location || !location.url) return TYPES.UNKOWN;
+            if (!location || !location.url) return TYPES.UNKNOWN;
             if (location.url.indexOf("youtube") !== -1) return TYPES.YOUTUBE;
             if (location.url.match(/\.(jpe?g|png)$/)) return TYPES.IMAGE;
             if (location.url.match(/\.(html)$/)) return TYPES.PAGE;
@@ -102,361 +95,361 @@
                 "name": "Kjell Henriksen Observatory, Svalbard",
                 "details": "",
                 "url": "https://kho.unis.no/Quicklooks/kho_sony.png",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Nordkapp, Finnmark",
                 "details": "",
                 "url": "https://live-image.panomax.com/cams/5067/recent_reduced.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Skibotn, Troms",
                 "details": "",
                 "url": "https://fox.phys.uit.no/ASC/Latest_ASC01.png",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Setermoen, Troms ",
-                "details": "North-east camera)",
+                "details": "(North-east camera)",
                 "url": "https://www.yr.no/webcams/1/2000/setermoen/3.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Loen, Vestland",
                 "details": "",
                 "url": "https://live-image.panomax.com/cams/1941/recent_reduced.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Brekke, Vestland",
                 "details": "(West camera)",
                 "url": "https://www.yr.no/webcams/1/2000/ortneset/1.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Brekke, Vestland",
                 "details": "(North-east camera)",
                 "url": "https://www.yr.no/webcams/1/2000/ortneset/2.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Abisko, Norrbotten",
                 "details": "",
                 "url": "https://lightsoverlapland.com/aurora-webcam/",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Kiruna, Norrbotten",
                 "details": "",
                 "url": "https://www.irf.se/alis/allsky/krn/latest_medium.jpeg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Porjus, Norrbotten",
                 "details": "(North camera)",
                 "url": "https://uk.jokkmokk.jp/photo/nr4/latest.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Porjus, Norrbotten",
                 "details": "(West camera)",
                 "url": "https://uk.jokkmokk.jp/photo/nr3/latest.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Kilpisjärvi, Lappland",
                 "details": "(North camera)",
                 "url": "https://www.youtube.com/watch?v=ccTVAhJU5lg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Levi, Lappland",
                 "details": "(North camera)",
                 "url": "https://www.youtube.com/watch?v=W3LKHE181Wg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Sodankylä, Lappland",
                 "details": "",
                 "url": "https://www.youtube.com/watch?v=T3tQnkEIBvg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Sodankylä, Lappland",
                 "details": "",
                 "url": "https://www.sgo.fi/Data/RealTime/Kuvat/UCL.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Oulu, North Ostrobothnia",
                 "details": "",
                 "url": "https://www.youtube.com/watch?v=fvLkWgFy4Bs",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Kalajoki, North Ostrobothnia",
                 "details": "",
                 "url": "https://www.youtube.com/watch?v=WBkhsOD82M8",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Tampere, Pirkanmaa",
                 "details": "(North camera)",
                 "url": "https://www.ursa.fi/yhd/tampereenursa/ys-images/north-snapshot.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Tampere, Pirkanmaa",
                 "details": "(West camera)",
                 "url": "https://www.ursa.fi/yhd/tampereenursa/ys-images/west-snapshot.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Tampere, Pirkanmaa",
                 "details": "(East camera)",
                 "url": "https://www.ursa.fi/yhd/tampereenursa/ys-images/east-snapshot.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Tampere, Pirkanmaa",
                 "details": "(South camera)",
                 "url": "https://www.ursa.fi/yhd/tampereenursa/ys-images/south-snapshot.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Hankasalmi, Central Finland",
                 "details": "",
                 "url": "https://aurorasnow.fmi.fi/public_service/images/latest_SIR_AllSky.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Nyrölä, Central Finland",
                 "details": "",
                 "url": "https://aurorasnow.fmi.fi/public_service/images/latest_SIR.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Kirkkonummi, Uusimaa",
                 "details": "",
                 "url": "https://aurorasnow.fmi.fi/public_service/images/latest_HOV.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Helsinki, Uusimaa",
                 "details": "",
                 "url": "https://space.fmi.fi/MIRACLE/RWC/latest_HEL.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Highland Center Hrauneyjar",
                 "details": "",
                 "url": "https://www.thehighlandcenter.is/northern-lights/webcam",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Hella",
                 "details": "Landhotel",
                 "url": "https://landhotel.is/index.php/northernlights-live",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Sorø",
                 "details": "",
                 "url": "https://archive.allsky.tv/AMS89/LATEST/010893.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Ilulissat Airport",
                 "details": "(North camera)",
                 "url": "https://www.youtube.com/watch?v=4YdNNvajwjI",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Tasiilaq Heliport",
                 "details": "",
                 "url": "https://www.youtube.com/watch?v=hfF9bhaBuvw",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Teriberka, Murmansk Oblast",
                 "details": "",
                 "url": "https://video.auroracam.ru/page/2ztOnUXP",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Strezhevoy",
                 "details": "",
                 "url": "https://starvisor.ru/wp-content/uploads/webcam/capture_str.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "St. Petersburg, Leningrad Oblast",
                 "details": "",
                 "url": "https://starvisor.ru/wp-content/uploads/webcam/cap_spbd.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Kaliningrad",
                 "details": "",
                 "url": "https://starvisor.ru/wp-content/uploads/webcam/cap_klnsky.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Shetland Islands, Scotland",
                 "details": "",
                 "url": "https://www.shetlandwebcams.com/cliff-cam-3/",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Cape Arkona, Rügen",
                 "details": " (Fischerdorf Vitt)",
                 "url": "https://kap-arkona.panomax.com/vitt",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Cape Arkona, Rügen",
                 "details": "(Peilturm)",
                 "url": "https://kap-arkona.panomax.com/peilturm",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Ettelsberg",
                 "details": "",
                 "url": "https://www.foto-webcam.eu/webcam/ettelsberg/current/1920.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Suntaži",
                 "details": "",
                 "url": "https://cam.starspace.lv/assets/images/allskycam/jumta_kamera2.jpeg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Brno",
                 "details": "(Camera 1)",
                 "url": "https://www.youtube.com/watch?v=atakzXwhXVM",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Brno",
                 "details": "(Camera 2)",
                 "url": "https://www.youtube.com/watch?v=ryq2f01FWUg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Brno",
                 "details": "(Camera 3)",
                 "url": "https://www.youtube.com/watch?v=XEKZCn4gCIU",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Brno",
                 "details": "(Camera 4)",
                 "url": "https://www.youtube.com/watch?v=KAvqFpBQJI4",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Ticino",
                 "details": "",
                 "url": "https://pizzomatro.roundshot.com/",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Yellowknife, Northwest Territories",
                 "details": "",
                 "url": "https://auroramax.phys.ucalgary.ca/recent/recent_480p.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Churchill, Manitoba",
                 "details": "",
                 "url": "https://www.youtube.com/watch?v=a0i1Kg6fROg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Banff, Alberta",
                 "details": "",
                 "url": "https://www.youtube.com/watch?v=BkdQyTFah6M",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Chatanika, Alaska",
                 "details": "",
                 "url": "https://allsky.gi.alaska.edu/",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Fairbanks, Alaska",
                 "details": "",
                 "url": "https://www.theaurorachasers.com/aurorawebcam",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Fairbanks, Alaska",
                 "details": "",
                 "url": "https://www.youtube.com/watch?v=c0mLq5X5spc",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Isle Royale National Park, Michigan",
                 "details": "",
                 "url": "https://www.nps.gov/webcams-isro/northshore.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Sebec Lake, Maine",
                 "details": "",
                 "url": "https://www.neoc.com/webcam3/",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Hope, New Jersey",
                 "details": "",
                 "url": "https://www.allskycam.com/u/627/latest_full.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Mayhill, New Mexico",
                 "details": "",
                 "url": "https://allsky.linuxkidd.com/image-fullsize.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Kingston, Tasmania",
                 "details": "",
                 "url": "https://www.allskycam.com/u.php?u=539",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Mount Burnett, Victoria",
                 "details": "",
                 "url": "https://skypi.mbo.org.au/allsky/image.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Craigie, Western Australia",
                 "details": "",
                 "url": "https://www.allskycam.com/u/606/latest_full.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Sydney, New South Wales",
                 "details": "",
                 "url": "https://admin.meteobridge.com/cam/9c25cda08544cf0db24b350b27d1e5f5/camplus.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Bluff, Southland",
                 "details": "",
                 "url": "https://weathercam.southloop.net.nz/OceanBeach/OceanBeachA0.jpg",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Davis Station",
                 "details": "",
                 "url": "https://www.antarctica.gov.au/antarctic-operations/webcams/davis/",
-                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html?utm_source=chatgpt.com.html"
+                "source": "https://www.spaceweatherlive.com/en/auroral-activity/webcams.html"
             },
             {
                 "name": "Apukka Resort Rovaniemi",

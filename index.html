@@ -46,20 +46,29 @@
             window.history.replaceState(null, '', '?' + urlParams.toString());
         }
 
+        const lightLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        });
+
+        const darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; CartoDB contributors'
+        });
+
         const map = L.map('map', {
             // Northern Europe (where first markers are shown)
             center: [64.1, 20.2],
             zoom: 4,
+            layers: [darkLayer]
         });
+        L.control.layers({
+            "Dark Mode": darkLayer,
+            "Light Mode": lightLayer,
+        }).addTo(map);
 
         const savedMapState = getMapStateFromURL();
         if (savedMapState) {
             map.setView([savedMapState.lat, savedMapState.lon], savedMapState.zoom);
         }
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
 
         map.on('moveend', () => updateURLWithMapState(map));
         map.on('zoomend', () => updateURLWithMapState(map));

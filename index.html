@@ -29,50 +29,54 @@
             const lat = parseFloat(urlParams.get('lat'));
             const lon = parseFloat(urlParams.get('lon'));
             const zoom = parseInt(urlParams.get('zoom'), 10);
-
-            return (lat && lon && zoom) ? { lat, lon, zoom } : null;
+            const layer = urlParams.get('layer');
+        
+            return (lat && lon && zoom) ? { lat, lon, zoom, layer } : null;
         }
-
-        function updateURLWithMapState(map) {
+        
+        function updateURLWithMapState(map, currentLayer) {
             const lat = map.getCenter().lat;
             const lon = map.getCenter().lng;
             const zoom = map.getZoom();
-
+        
             const urlParams = new URLSearchParams(window.location.search);
             urlParams.set('lat', lat);
             urlParams.set('lon', lon);
             urlParams.set('zoom', zoom);
-
+            urlParams.set('layer', currentLayer);
+        
             window.history.replaceState(null, '', '?' + urlParams.toString());
         }
-
+        
         const lightLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         });
-
+        
         const darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
             attribution: '&copy; CartoDB contributors'
         });
-
-        const map = L.map('map', {
-            // Northern Europe (where first markers are shown)
-            center: [64.1, 20.2],
-            zoom: 4,
-            layers: [darkLayer]
-        });
-        L.control.layers({
+        
+        const layers = {
             "Dark Mode": darkLayer,
-            "Light Mode": lightLayer,
-        }).addTo(map);
-
+            "Light Mode": lightLayer
+        };
+        
         const savedMapState = getMapStateFromURL();
-        if (savedMapState) {
-            map.setView([savedMapState.lat, savedMapState.lon], savedMapState.zoom);
-        }
-
-        map.on('moveend', () => updateURLWithMapState(map));
-        map.on('zoomend', () => updateURLWithMapState(map));
-
+        const initialLayer = savedMapState && savedMapState.layer === 'light' ? lightLayer : darkLayer;
+        
+        const map = L.map('map', {
+            // Northern Europe by default (where first markers are shown)
+            center: savedMapState ? [savedMapState.lat, savedMapState.lon] : [64.1, 20.2],
+            zoom: savedMapState ? savedMapState.zoom : 4,
+            layers: [initialLayer]
+        });
+        
+        L.control.layers(layers).addTo(map);
+        
+        map.on('moveend', () => updateURLWithMapState(map, map.hasLayer(lightLayer) ? 'light' : 'dark'));
+        map.on('zoomend', () => updateURLWithMapState(map, map.hasLayer(lightLayer) ? 'light' : 'dark'));
+        map.on('baselayerchange', (e) => updateURLWithMapState(map, e.name === 'Light Mode' ? 'light' : 'dark'));
+        
         const cache = {
             __data: {},
             __timer: null,
